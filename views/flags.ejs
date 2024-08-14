@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flag Quiz</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body id="app">
+  <form class="container" action="/submitFlag" method="post">
+    <div class="horizontal-container">
+      <h3 id="score">
+        Total Score:
+        <span >
+          <%= locals.totalScore ? totalScore : "0" %>
+        </span>
+      </h3>
+      <h3 id="lifes">
+        Lifes:
+        <span >
+          <%= locals.lifes %>
+        </span>
+      </h3>
+    </div>
+
+    <div class="horizontal-container">
+      <h1> Which country the flag belongs to? </h1>
+      <span id="countryFlag"><%=question.flag %></span>
+    </div>
+    
+    <div>
+      <div class="answer-container">
+        <input type="text" name="answer" id="userInput" placeholder="Name the country" autofocus autocomplete="off">
+      </div>
+      <button type="submit">SUBMIT<% if(locals.wasCorrect){ %>
+          <span class="checkmark">✔</span>
+          <% } else if (locals.wasCorrect===false) { %>
+            <span class="cross" id="error">✖</span>
+            <% } %>
+      </button>
+      <button id="hint" type="button">HINT</button>
+
+    </div>
+    
+
+
+  </form>
+  <script type="text/javascript" charset="utf-8">
+
+    document.getElementById("hint").addEventListener("click", function() {
+      this.textContent = "<%= locals.question.country %>";
+    });
+    
+    var gameOver = "<%= locals.gameOver %>";
+    
+    if (gameOver === "true") {
+      // alert('Game over! Final best score: <%= locals.totalScore %>');
+      document.getElementById("app").innerHTML = '<a href="/" class="restart-button">Restart</a>';
+    }
+
+    var wasCorrect = "<%= locals.wasCorrect %>";
+    if(wasCorrect === "false"){
+      setTimeout(() => {
+        document.getElementsByClassName("container")[0].style.backgroundColor = "red"
+      }, 500);
+    }
+  </script>
+</body>
+
+</html>
