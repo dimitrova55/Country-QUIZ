@@ -61,6 +61,7 @@ button {
   display: block;
   width: 100%;
   padding: 10px;
+  margin-top: 5px;
   background-color: #674188;
   color: white;
   border: none;
@@ -82,6 +83,7 @@ button[id="hint"] {
 
 button:hover {
   background-color: #C8A1E0;
+  color: black;
 }
 
 #result {
@@ -118,14 +120,10 @@ button:hover {
 }
 
 .restart-button {
-  position: absolute;
-  top: 45%;
-  left: 47.5%;
-  display: inline-block;
   background-color: #674188;
   color: white;
   padding: 15px 30px;
-  font-size: 18px;
+  font-size: 2rem;
   text-align: center;
   text-decoration: none;
   border-radius: 30px;
@@ -133,6 +131,42 @@ button:hover {
   transition: background-color 0.3s, color 0.3s;
 }
 
-@media (width ) {
-  
+.game-over {
+  position: absolute;
+  top: 20%;
+  left: 34%;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.game-over h1 {
+  font-family: "Kaushan Script", cursive;
+  font-size: 5rem;
+  font-weight: 800;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .container{
+    margin-top: 20%;
+    margin-left: 10%;
+    margin-right: 30%;
+  }  
+  .game-over {
+    top: 15%;
+    left: 15%;
+  }
+}
+
+@media(max-width: 600px) {
+  .container {
+    width: 100vw;
+    margin: 0;
+    margin-top: 20%;
+  }
+  .game-over {
+    top: 10%;
+    left: 0;
+  }
 }

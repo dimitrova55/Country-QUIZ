@@ -1,6 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -14,13 +17,13 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "world",
-  password: "papagal",
+  password: process.env.DB_PASSWORD,
   port: 5432
 });
 db.connect();
 
 // Global Variables
-let lifes = 3;
+let lives = 3;
 let totalCorrect = 0;
 let currentQuestion = {};
 let quiz = [];
@@ -41,7 +44,7 @@ app.get("/", (req, res) => {
 
   // setting up initial values
   totalCorrect = 0;
-  lifes = 3;
+  lives = 3;
   gameOver = false;
 
   // selecting a random question
@@ -51,13 +54,13 @@ app.get("/", (req, res) => {
   // render
   res.render("flags.ejs", {
     question: currentQuestion,
-    lifes: lifes,
+    lives: lives,
    });
 });
 
 
 // POST a new post
-app.post("/submitFlag", (req, res) => {
+app.post("/submit-flag", (req, res) => {
   let answer = req.body.answer.trim();
   let isCorrect = false;
 
@@ -68,10 +71,10 @@ app.post("/submitFlag", (req, res) => {
     isCorrect = true;
   }
   else {
-    --lifes;
-    console.log("lifes: ", lifes);
+    --lives;
+    console.log("lives: ", lives);
     
-    if(lifes <= 0)
+    if(lives <= 0)
       gameOver = true;    
   }
 
@@ -81,13 +84,13 @@ app.post("/submitFlag", (req, res) => {
     question: currentQuestion,
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
-    lifes: lifes,
+    lives: lives,
     gameOver: gameOver,
   });
 });
 
 // POST a new post
-app.post("/submitCapital", async (req, res) => {
+app.post("/submit-capital", async (req, res) => {
   let answer = req.body.answer.trim();
   let isCorrect = false;
 
@@ -98,9 +101,9 @@ app.post("/submitCapital", async (req, res) => {
     isCorrect = true;
   }
   else {
-    --lifes;
-    console.log("lifes: ", lifes);
-    if(lifes <= 0)
+    --lives;
+    console.log("lives: ", lives);
+    if(lives <= 0)
       gameOver = true;    
   }
   
@@ -112,7 +115,7 @@ app.post("/submitCapital", async (req, res) => {
     question: currentQuestion,
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
-    lifes: lifes,
+    lives: lives,
     gameOver: gameOver,
   });
 });

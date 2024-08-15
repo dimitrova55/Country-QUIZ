@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Capital City Quiz</title>
   <link rel="stylesheet" href="/styles/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kaushan+Script&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 
 <body id="app">
-  <form class="container" action="/submitCapital" method="post">
+  <form class="container" action="/submit-capital" method="post">
     <div class="horizontal-container">
       <h3 id="score">
         Total Score:
@@ -18,9 +21,9 @@
         </span>
       </h3>
       <h3 id="lifes">
-        Lifes:
+        Lives:
         <span >
-          <%= locals.lifes %>
+          <%= locals.lives %>
         </span>
       </h3>
     </div>
@@ -49,21 +52,28 @@
   
   <script type="text/javascript" charset="utf-8">
 
+    // HINT button
     document.getElementById("hint").addEventListener("click", function() {
       this.textContent = "<%= locals.question.capital %>";
     });
 
-    // game over check
+    // Game Over check
     var gameOver = "<%= locals.gameOver %>";    
     if (gameOver === "true") {
-      alert('Game over! Final best score: <%= locals.totalScore %>');
-      document.getElementById("app").innerHTML = '<a href="/" class="restart-button">Restart</a>';
+      // alert('Game over! Final best score: <%= locals.totalScore %>');
+      document.getElementById("app").innerHTML = 
+      `<div class="game-over">
+        <h1> GAME OVER! </h1>
+        <a href="/" class="restart-button">Restart</a>
+      </div>`;
     }
 
+    // Wrong answer alert
     var wasCorrect = "<%= locals.wasCorrect %>";
     if(wasCorrect === "false"){
+      document.getElementsByClassName("container")[0].style.backgroundColor = "red";
       setTimeout(() => {
-        document.getElementsByClassName("container")[0].style.backgroundColor = "red"
+        document.getElementsByClassName("container")[0].style.backgroundColor = "#fff";
       }, 500);
     }
     

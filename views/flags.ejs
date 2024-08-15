@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flag Quiz</title>
   <link rel="stylesheet" href="/styles/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kaushan+Script&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 
 <body id="app">
-  <form class="container" action="/submitFlag" method="post">
+  <form class="container " action="/submit-flag" method="post">
     <div class="horizontal-container">
       <h3 id="score">
         Total Score:
@@ -18,9 +21,9 @@
         </span>
       </h3>
       <h3 id="lifes">
-        Lifes:
+        Lives:
         <span >
-          <%= locals.lifes %>
+          <%= locals.lives %>
         </span>
       </h3>
     </div>
@@ -43,27 +46,33 @@
       <button id="hint" type="button">HINT</button>
 
     </div>
-    
-
-
   </form>
   <script type="text/javascript" charset="utf-8">
 
+    // HINT button
     document.getElementById("hint").addEventListener("click", function() {
       this.textContent = "<%= locals.question.country %>";
     });
     
-    var gameOver = "<%= locals.gameOver %>";
-    
+    // Game Over 
+    var gameOver = "<%= locals.gameOver %>";    
     if (gameOver === "true") {
       // alert('Game over! Final best score: <%= locals.totalScore %>');
-      document.getElementById("app").innerHTML = '<a href="/" class="restart-button">Restart</a>';
+      document.getElementById("app").innerHTML = 
+      `<div class="game-over">
+        <h1> GAME OVER! </h1>
+        <a href="/" class="restart-button">Restart</a>
+      </div>`;
+      
+      // document.getElementById("app").innerHTML = '<a href="/" class="restart-button">Restart</a>';
     }
 
+    // Wrong answer alert
     var wasCorrect = "<%= locals.wasCorrect %>";
     if(wasCorrect === "false"){
+      document.getElementsByClassName("container")[0].style.backgroundColor = "red";
       setTimeout(() => {
-        document.getElementsByClassName("container")[0].style.backgroundColor = "red"
+        document.getElementsByClassName("container")[0].style.backgroundColor = "#fff";
       }, 500);
     }
   </script>
