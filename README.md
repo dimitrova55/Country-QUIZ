@@ -26,4 +26,4 @@ This is a fun and interactive quiz web application where users test their knowle
 
 ## Usage
 
-[GIF DEMO]()
+[GIF DEMO](https://github.com/dimitrova55/Country-QUIZ/blob/main/quiz_demo.gif)
